@@ -1,0 +1,231 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/menu_principal.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/mapa/mapa_bosque.png" id="2_mapa"]
+[ext_resource type="Texture2D" path="res://assets/sprites/alex.png" id="3_alex"]
+[ext_resource type="Shader" path="res://recursos/niebla.gdshader" id="4_niebla"]
+[ext_resource type="PackedScene" path="res://escenas/ui/instrucciones.tscn" id="5_instr"]
+
+[sub_resource type="AtlasTexture" id="Atlas_alex"]
+atlas = ExtResource("3_alex")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="ShaderMaterial" id="Mat_niebla"]
+shader = ExtResource("4_niebla")
+shader_parameter/color_niebla = Color(0.78, 0.82, 0.92, 1)
+shader_parameter/densidad = 0.35
+shader_parameter/velocidad = 0.05
+shader_parameter/tamano = Vector2(480, 270)
+shader_parameter/escala = 90.0
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_normal"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.06, 0.08, 0.16, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.6, 0.8, 0.7)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_hover"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.16, 0.2, 0.36, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.5, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_pressed"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.3, 0.26, 0.14, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.5, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_disabled"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.06, 0.08, 0.16, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.42, 0.55, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="Theme" id="Tema"]
+Button/colors/font_color = Color(0.9, 0.92, 1, 1)
+Button/colors/font_focus_color = Color(1, 0.9, 0.6, 1)
+Button/colors/font_hover_color = Color(1, 0.9, 0.6, 1)
+Button/font_sizes/font_size = 12
+Button/styles/disabled = SubResource("Style_boton_disabled")
+Button/styles/focus = SubResource("Style_boton_hover")
+Button/styles/hover = SubResource("Style_boton_hover")
+Button/styles/normal = SubResource("Style_boton_normal")
+Button/styles/pressed = SubResource("Style_boton_pressed")
+
+[node name="MenuPrincipal" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Tema")
+script = ExtResource("1_script")
+
+[node name="Fondo" type="TextureRect" parent="."]
+offset_right = 733.0
+offset_bottom = 270.0
+texture = ExtResource("2_mapa")
+expand_mode = 1
+
+[node name="Niebla" type="ColorRect" parent="."]
+material = SubResource("Mat_niebla")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Oscuro" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.02, 0.03, 0.08, 0.5)
+
+[node name="Alex" type="TextureRect" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = -112.0
+offset_right = 92.0
+offset_bottom = -48.0
+grow_vertical = 0
+texture = SubResource("Atlas_alex")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Titulo" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -230.0
+offset_top = 34.0
+offset_right = 230.0
+offset_bottom = 76.0
+grow_horizontal = 2
+pivot_offset = Vector2(230, 21)
+theme_override_colors/font_color = Color(1, 0.9, 0.66, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+text = "SALIR DEL SILENCIO"
+
+[node name="Subtitulo" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 76.0
+offset_right = 200.0
+offset_bottom = 94.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.75, 0.86, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+text = "El camino hacia la luz"
+
+[node name="Botones" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_left = -75
+offset_top = -18
+offset_right = 75
+offset_bottom = 72
+theme_override_constants/separation = 6
+
+[node name="Jugar" type="Button" parent="Botones"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 22)
+theme_override_font_sizes/font_size = 13
+text = "Jugar"
+
+[node name="Instrucciones" type="Button" parent="Botones"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 22)
+theme_override_font_sizes/font_size = 13
+text = "Instrucciones"
+
+[node name="Salir" type="Button" parent="Botones"]
+layout_mode = 2
+custom_minimum_size = Vector2(150, 22)
+theme_override_font_sizes/font_size = 13
+text = "Salir"
+
+[node name="Frase" type="Label" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 100.0
+offset_top = -28.0
+offset_right = -10.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.85, 0.85, 0.95, 0.9)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+text = "\"No se trata de derrotar a los monstruos, sino de encontrar la luz dentro de ti.\""
+autowrap_mode = 3
+
+[node name="Instrucciones" parent="." instance=ExtResource("5_instr")]
+visible = false
+
+[connection signal="pressed" from="Botones/Jugar" to="." method="_on_jugar_pressed"]
+[connection signal="pressed" from="Botones/Instrucciones" to="." method="_on_instrucciones_pressed"]
+[connection signal="pressed" from="Botones/Salir" to="." method="_on_salir_pressed"]

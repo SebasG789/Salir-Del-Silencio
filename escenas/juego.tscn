@@ -1,0 +1,961 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/juego_escena.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/mapa/mapa_bosque.png" id="2_mapa"]
+[ext_resource type="Texture2D" path="res://recursos/luz_suave.tres" id="3_luz"]
+[ext_resource type="PackedScene" path="res://escenas/jugador/alex.tscn" id="4_alex"]
+[ext_resource type="PackedScene" path="res://escenas/enemigos/sombra.tscn" id="5_sombra"]
+[ext_resource type="PackedScene" path="res://escenas/enemigos/arana.tscn" id="6_arana"]
+[ext_resource type="PackedScene" path="res://escenas/objetos/fragmento.tscn" id="7_fragmento"]
+[ext_resource type="PackedScene" path="res://escenas/objetos/respiro.tscn" id="8_respiro"]
+[ext_resource type="PackedScene" path="res://escenas/objetos/salida.tscn" id="9_salida"]
+[ext_resource type="PackedScene" path="res://escenas/personajes/npc.tscn" id="10_npc"]
+[ext_resource type="PackedScene" path="res://escenas/ui/hud.tscn" id="11_hud"]
+[ext_resource type="Script" path="res://scripts/zona.gd" id="12_zona"]
+[ext_resource type="Shader" path="res://recursos/agua.gdshader" id="13_agua"]
+[ext_resource type="Texture2D" path="res://assets/mapa/agua_mascara.png" id="14_mascara"]
+[ext_resource type="Shader" path="res://recursos/niebla.gdshader" id="15_niebla"]
+[ext_resource type="Script" path="res://scripts/parpadeo_luces.gd" id="16_parpadeo"]
+[ext_resource type="Script" path="res://scripts/guia.gd" id="17_guia"]
+[ext_resource type="Texture2D" path="res://assets/sprites/flecha.png" id="18_flecha"]
+[ext_resource type="Texture2D" path="res://assets/sprites/companera.png" id="19_sam"]
+[ext_resource type="Texture2D" path="res://assets/sprites/guia.png" id="20_lia"]
+[ext_resource type="Texture2D" path="res://assets/sprites/anciana.png" id="21_rosa"]
+[ext_resource type="Texture2D" path="res://assets/sprites/nico.png" id="22_nico"]
+[ext_resource type="Texture2D" path="res://assets/sprites/vale.png" id="23_vale"]
+
+[sub_resource type="ShaderMaterial" id="Mat_agua"]
+shader = ExtResource("13_agua")
+shader_parameter/mascara = ExtResource("14_mascara")
+shader_parameter/fuerza_ondas = 1.0
+shader_parameter/velocidad_cascada = 9.0
+
+[sub_resource type="ShaderMaterial" id="Mat_niebla"]
+shader = ExtResource("15_niebla")
+shader_parameter/color_niebla = Color(0.78, 0.82, 0.92, 1)
+shader_parameter/densidad = 0.28
+shader_parameter/velocidad = 0.02
+shader_parameter/tamano = Vector2(2067, 761)
+shader_parameter/escala = 140.0
+
+[sub_resource type="RectangleShape2D" id="Rect_zona_0"]
+size = Vector2(380, 155)
+
+[sub_resource type="RectangleShape2D" id="Rect_zona_1"]
+size = Vector2(450, 245)
+
+[sub_resource type="RectangleShape2D" id="Rect_zona_2"]
+size = Vector2(420, 250)
+
+[sub_resource type="RectangleShape2D" id="Rect_zona_3"]
+size = Vector2(380, 200)
+
+[sub_resource type="RectangleShape2D" id="Rect_zona_4"]
+size = Vector2(660, 230)
+
+[sub_resource type="RectangleShape2D" id="Rect_zona_5"]
+size = Vector2(560, 182)
+
+[sub_resource type="RectangleShape2D" id="Rect_zona_6"]
+size = Vector2(420, 194)
+
+[sub_resource type="RectangleShape2D" id="Rect_zona_7"]
+size = Vector2(520, 220)
+
+[sub_resource type="RectangleShape2D" id="Rect_zona_8"]
+size = Vector2(100, 200)
+
+[node name="Juego" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Niebla" type="CanvasModulate" parent="."]
+color = Color(0.2, 0.22, 0.34, 1)
+
+[node name="Mapa" type="Node2D" parent="."]
+
+[node name="Bloque_0_0" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(0, 0)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 256, 256)
+
+[node name="Bloque_1_0" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(256, 0)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(256, 0, 256, 256)
+
+[node name="Bloque_2_0" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(512, 0)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(512, 0, 256, 256)
+
+[node name="Bloque_3_0" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(768, 0)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(768, 0, 256, 256)
+
+[node name="Bloque_4_0" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1024, 0)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1024, 0, 256, 256)
+
+[node name="Bloque_5_0" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1280, 0)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1280, 0, 256, 256)
+
+[node name="Bloque_6_0" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1536, 0)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1536, 0, 256, 256)
+
+[node name="Bloque_7_0" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1792, 0)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1792, 0, 256, 256)
+
+[node name="Bloque_8_0" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(2048, 0)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(2048, 0, 19, 256)
+
+[node name="Bloque_0_1" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(0, 256)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 256, 256, 256)
+
+[node name="Bloque_1_1" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(256, 256)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(256, 256, 256, 256)
+
+[node name="Bloque_2_1" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(512, 256)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(512, 256, 256, 256)
+
+[node name="Bloque_3_1" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(768, 256)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(768, 256, 256, 256)
+
+[node name="Bloque_4_1" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1024, 256)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1024, 256, 256, 256)
+
+[node name="Bloque_5_1" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1280, 256)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1280, 256, 256, 256)
+
+[node name="Bloque_6_1" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1536, 256)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1536, 256, 256, 256)
+
+[node name="Bloque_7_1" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1792, 256)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1792, 256, 256, 256)
+
+[node name="Bloque_8_1" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(2048, 256)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(2048, 256, 19, 256)
+
+[node name="Bloque_0_2" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(0, 512)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 512, 256, 249)
+
+[node name="Bloque_1_2" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(256, 512)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(256, 512, 256, 249)
+
+[node name="Bloque_2_2" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(512, 512)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(512, 512, 256, 249)
+
+[node name="Bloque_3_2" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(768, 512)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(768, 512, 256, 249)
+
+[node name="Bloque_4_2" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1024, 512)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1024, 512, 256, 249)
+
+[node name="Bloque_5_2" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1280, 512)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1280, 512, 256, 249)
+
+[node name="Bloque_6_2" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1536, 512)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1536, 512, 256, 249)
+
+[node name="Bloque_7_2" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(1792, 512)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(1792, 512, 256, 249)
+
+[node name="Bloque_8_2" type="Sprite2D" parent="Mapa"]
+material = SubResource("Mat_agua")
+position = Vector2(2048, 512)
+texture = ExtResource("2_mapa")
+centered = false
+region_enabled = true
+region_rect = Rect2(2048, 512, 19, 249)
+
+[node name="NieblaAnimada" type="ColorRect" parent="."]
+material = SubResource("Mat_niebla")
+offset_right = 2067.0
+offset_bottom = 761.0
+mouse_filter = 2
+
+[node name="Luces" type="Node2D" parent="."]
+script = ExtResource("16_parpadeo")
+
+[node name="Farol1" type="PointLight2D" parent="Luces"]
+position = Vector2(1724, 597)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol2" type="PointLight2D" parent="Luces"]
+position = Vector2(1826, 530)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol3" type="PointLight2D" parent="Luces"]
+position = Vector2(1968, 162)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol4" type="PointLight2D" parent="Luces"]
+position = Vector2(94, 593)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol5" type="PointLight2D" parent="Luces"]
+position = Vector2(1661, 410)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol6" type="PointLight2D" parent="Luces"]
+position = Vector2(1529, 631)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol7" type="PointLight2D" parent="Luces"]
+position = Vector2(1497, 339)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol8" type="PointLight2D" parent="Luces"]
+position = Vector2(139, 553)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol9" type="PointLight2D" parent="Luces"]
+position = Vector2(759, 275)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol10" type="PointLight2D" parent="Luces"]
+position = Vector2(991, 110)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol11" type="PointLight2D" parent="Luces"]
+position = Vector2(599, 320)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol12" type="PointLight2D" parent="Luces"]
+position = Vector2(1709, 377)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol13" type="PointLight2D" parent="Luces"]
+position = Vector2(558, 122)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol14" type="PointLight2D" parent="Luces"]
+position = Vector2(1115, 363)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol15" type="PointLight2D" parent="Luces"]
+position = Vector2(1074, 108)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol16" type="PointLight2D" parent="Luces"]
+position = Vector2(115, 249)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol17" type="PointLight2D" parent="Luces"]
+position = Vector2(1794, 593)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol18" type="PointLight2D" parent="Luces"]
+position = Vector2(1371, 404)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol19" type="PointLight2D" parent="Luces"]
+position = Vector2(1060, 681)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol20" type="PointLight2D" parent="Luces"]
+position = Vector2(944, 364)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol21" type="PointLight2D" parent="Luces"]
+position = Vector2(496, 146)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol22" type="PointLight2D" parent="Luces"]
+position = Vector2(1662, 596)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol23" type="PointLight2D" parent="Luces"]
+position = Vector2(356, 555)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol24" type="PointLight2D" parent="Luces"]
+position = Vector2(1863, 592)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol25" type="PointLight2D" parent="Luces"]
+position = Vector2(1881, 406)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol26" type="PointLight2D" parent="Luces"]
+position = Vector2(1355, 256)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol27" type="PointLight2D" parent="Luces"]
+position = Vector2(832, 254)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol28" type="PointLight2D" parent="Luces"]
+position = Vector2(888, 366)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol29" type="PointLight2D" parent="Luces"]
+position = Vector2(1268, 185)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol30" type="PointLight2D" parent="Luces"]
+position = Vector2(1622, 554)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol31" type="PointLight2D" parent="Luces"]
+position = Vector2(1781, 199)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol32" type="PointLight2D" parent="Luces"]
+position = Vector2(1920, 616)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="Farol33" type="PointLight2D" parent="Luces"]
+position = Vector2(377, 372)
+color = Color(1, 0.75, 0.4, 1)
+energy = 0.9
+texture = ExtResource("3_luz")
+texture_scale = 0.4
+
+[node name="ArbolSantuario" type="PointLight2D" parent="Luces"]
+position = Vector2(1028, 350)
+color = Color(0.45, 0.75, 1, 1)
+energy = 1.3
+texture = ExtResource("3_luz")
+texture_scale = 1.1
+
+[node name="Fogata" type="PointLight2D" parent="Luces"]
+position = Vector2(1663, 407)
+color = Color(1, 0.6, 0.3, 1)
+energy = 1.1
+texture = ExtResource("3_luz")
+texture_scale = 0.7
+
+[node name="Colisiones" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="Borde1" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1250, 132, 1244, 126, 1244, 110, 1250, 104, 1274, 104, 1280, 110, 1262, 128, 1254, 128)
+
+[node name="Borde2" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(930, 712, 918, 700, 910, 712, 890, 708, 882, 700, 874, 700, 864, 686, 868, 678, 856, 666, 856, 662, 836, 650, 840, 642, 840, 622, 824, 602, 830, 596, 846, 596, 860, 586, 860, 542, 846, 520, 834, 524, 828, 518, 834, 512, 846, 516, 862, 504, 870, 516, 882, 516, 886, 520, 894, 512, 902, 520, 910, 520, 916, 526, 906, 536, 894, 528, 880, 538, 880, 594, 898, 608, 906, 604, 922, 604, 926, 600, 950, 624, 974, 624, 980, 618, 976, 614, 982, 608, 994, 608, 998, 612, 1012, 610, 1012, 494, 998, 488, 990, 480, 950, 480, 942, 472, 934, 472, 922, 460, 910, 460, 886, 440, 870, 440, 862, 452, 850, 448, 842, 440, 694, 440, 642, 440, 640, 450, 634, 456, 630, 452, 626, 456, 614, 452, 608, 442, 592, 430, 592, 302, 578, 300, 550, 272, 546, 272, 532, 258, 530, 240, 524, 242, 524, 250, 504, 270, 504, 354, 496, 358, 494, 376, 478, 376, 474, 380, 470, 376, 398, 380, 390, 388, 370, 388, 362, 392, 360, 398, 354, 404, 346, 404, 342, 412, 314, 412, 306, 404, 294, 416, 248, 418, 256, 426, 256, 438, 248, 446, 248, 458, 244, 462, 244, 526, 254, 536, 262, 536, 278, 548, 290, 548, 294, 552, 298, 548, 342, 548, 348, 554, 348, 562, 342, 568, 278, 568, 258, 556, 234, 572, 206, 608, 194, 604, 186, 612, 166, 604, 158, 604, 150, 612, 114, 612, 108, 606, 112, 602, 112, 586, 106, 576, 98, 584, 90, 580, 84, 586, 80, 602, 82, 604, 90, 596, 100, 606, 94, 612, 86, 612, 82, 608, 78, 612, 54, 612, 28, 582, 28, 574, 34, 568, 40, 574, 42, 584, 58, 584, 60, 570, 70, 556, 78, 564, 84, 562, 84, 534, 78, 528, 74, 532, 68, 526, 76, 518, 68, 510, 74, 504, 90, 504, 98, 512, 106, 512, 112, 518, 104, 530, 104, 562, 114, 564, 118, 560, 128, 566, 134, 576, 154, 576, 158, 580, 166, 572, 190, 568, 196, 558, 196, 542, 204, 534, 204, 458, 192, 446, 180, 422, 166, 408, 142, 424, 136, 418, 136, 410, 118, 396, 98, 400, 90, 412, 62, 408, 56, 402, 56, 394, 62, 388, 72, 386, 72, 378, 64, 370, 64, 362, 60, 358, 80, 346, 76, 334, 88, 318, 84, 310, 88, 306, 88, 294, 102, 284, 110, 272, 122, 276, 130, 268, 138, 268, 154, 244, 162, 248, 190, 248, 196, 254, 190, 264, 170, 264, 162, 256, 156, 262, 156, 282, 160, 290, 146, 304, 142, 300, 134, 300, 124, 310, 128, 330, 112, 350, 112, 358, 126, 372, 134, 372, 142, 384, 166, 388, 170, 392, 178, 384, 190, 384, 194, 388, 200, 386, 200, 358, 192, 350, 196, 334, 194, 332, 190, 336, 180, 326, 176, 318, 176, 298, 168, 290, 174, 284, 182, 284, 186, 288, 202, 284, 214, 268, 226, 268, 236, 278, 228, 286, 226, 296, 250, 312, 258, 308, 264, 314, 256, 322, 252, 346, 246, 352, 242, 348, 240, 350, 242, 400, 250, 392, 258, 392, 288, 374, 280, 358, 268, 346, 268, 338, 272, 334, 268, 330, 268, 322, 274, 316, 284, 322, 284, 334, 294, 348, 326, 348, 334, 340, 342, 340, 348, 346, 342, 352, 334, 352, 332, 358, 346, 376, 366, 368, 386, 368, 388, 362, 380, 350, 390, 340, 398, 340, 402, 344, 418, 340, 434, 352, 450, 352, 458, 356, 464, 350, 464, 234, 472, 230, 464, 214, 482, 200, 484, 194, 470, 176, 462, 180, 456, 174, 466, 164, 474, 164, 478, 160, 482, 160, 490, 172, 494, 172, 506, 164, 510, 168, 530, 168, 538, 160, 546, 164, 550, 160, 562, 160, 566, 156, 574, 160, 578, 156, 586, 164, 594, 160, 604, 174, 594, 184, 564, 202, 564, 210, 556, 218, 556, 230, 566, 232, 570, 228, 580, 238, 568, 254, 574, 260, 582, 260, 594, 272, 606, 272, 614, 284, 634, 284, 648, 278, 648, 266, 644, 262, 650, 256, 658, 260, 664, 254, 666, 212, 702, 212, 704, 258, 714, 260, 722, 268, 742, 264, 752, 250, 748, 246, 752, 242, 750, 236, 742, 240, 736, 234, 750, 216, 762, 220, 784, 246, 774, 256, 766, 256, 758, 248, 756, 250, 760, 258, 756, 266, 756, 286, 750, 292, 738, 292, 726, 312, 698, 316, 692, 310, 696, 302, 686, 296, 680, 302, 684, 306, 670, 328, 664, 322, 664, 314, 658, 304, 644, 306, 644, 314, 640, 318, 642, 408, 846, 408, 844, 398, 856, 386, 866, 388, 870, 384, 884, 394, 872, 402, 882, 420, 890, 420, 898, 428, 918, 424, 934, 444, 942, 440, 954, 452, 970, 460, 1010, 460, 1014, 424, 1050, 424, 1054, 460, 1098, 460, 1122, 444, 1128, 438, 1124, 434, 1130, 428, 1138, 432, 1166, 432, 1172, 426, 1148, 422, 1150, 384, 1374, 384, 1378, 372, 1402, 372, 1404, 226, 1442, 224, 1444, 370, 1448, 374, 1448, 382, 1460, 390, 1466, 412, 1472, 410, 1468, 402, 1474, 396, 1478, 400, 1486, 400, 1502, 416, 1506, 416, 1508, 410, 1504, 406, 1530, 388, 1536, 394, 1528, 410, 1532, 418, 1542, 428, 1554, 428, 1556, 410, 1548, 398, 1548, 378, 1554, 368, 1570, 360, 1578, 360, 1596, 374, 1604, 390, 1600, 394, 1604, 402, 1596, 410, 1598, 432, 1610, 424, 1614, 416, 1622, 416, 1628, 410, 1616, 386, 1622, 376, 1630, 376, 1640, 394, 1652, 402, 1644, 410, 1646, 416, 1682, 416, 1684, 410, 1694, 404, 1700, 410, 1696, 414, 1698, 416, 1718, 416, 1722, 408, 1890, 408, 1894, 420, 1898, 416, 1906, 416, 1926, 396, 1930, 396, 1944, 374, 1944, 366, 1936, 354, 1948, 342, 1948, 334, 1956, 322, 1948, 310, 1956, 298, 1954, 244, 1794, 244, 1790, 248, 1722, 248, 1718, 244, 1714, 248, 1698, 248, 1682, 236, 1666, 240, 1658, 248, 1650, 244, 1642, 244, 1638, 248, 1622, 244, 1616, 238, 1622, 232, 1662, 232, 1676, 222, 1676, 214, 1668, 206, 1664, 190, 1656, 182, 1664, 174, 1664, 166, 1658, 160, 1652, 166, 1652, 174, 1656, 178, 1644, 190, 1634, 208, 1628, 202, 1628, 190, 1622, 180, 1614, 180, 1606, 188, 1594, 176, 1580, 182, 1580, 194, 1564, 210, 1564, 214, 1582, 228, 1586, 224, 1594, 228, 1604, 238, 1598, 244, 1590, 240, 1582, 248, 1574, 244, 1554, 244, 1546, 248, 1522, 220, 1514, 220, 1494, 244, 1478, 236, 1470, 244, 1458, 248, 1452, 242, 1468, 230, 1464, 226, 1464, 218, 1450, 200, 1434, 208, 1430, 204, 1406, 204, 1398, 200, 1388, 210, 1388, 218, 1376, 230, 1376, 242, 1372, 246, 1362, 248, 1354, 244, 1352, 250, 1338, 260, 1332, 250, 1300, 222, 1306, 216, 1322, 216, 1330, 212, 1350, 184, 1366, 196, 1378, 196, 1408, 174, 1400, 162, 1406, 156, 1418, 156, 1422, 152, 1434, 156, 1438, 152, 1446, 152, 1462, 136, 1478, 144, 1498, 140, 1504, 134, 1504, 126, 1518, 116, 1586, 116, 1596, 126, 1592, 134, 1592, 150, 1598, 156, 1602, 152, 1610, 156, 1630, 156, 1654, 136, 1682, 136, 1684, 126, 1690, 120, 1694, 124, 1726, 128, 1730, 132, 1742, 120, 1746, 120, 1752, 130, 1744, 138, 1744, 150, 1758, 160, 1764, 170, 1758, 176, 1750, 168, 1734, 172, 1728, 178, 1728, 186, 1720, 198, 1790, 200, 1794, 216, 1954, 216, 1956, 138, 1996, 138, 1996, 326, 1980, 330, 1984, 338, 1980, 342, 1980, 354, 1988, 366, 1980, 374, 2000, 402, 1990, 408, 1984, 398, 1970, 388, 1956, 398, 1956, 410, 1948, 418, 1954, 428, 1982, 428, 1990, 424, 2008, 450, 2002, 456, 1992, 458, 1992, 558, 1996, 562, 1992, 566, 1992, 618, 1976, 622, 1980, 626, 1976, 630, 1974, 644, 1962, 644, 1946, 656, 1940, 654, 1938, 644, 1894, 644, 1878, 664, 1862, 652, 1850, 652, 1842, 660, 1834, 652, 1818, 660, 1806, 652, 1798, 652, 1784, 662, 1788, 670, 1778, 680, 1766, 672, 1758, 672, 1750, 680, 1726, 684, 1710, 668, 1706, 668, 1698, 680, 1688, 662, 1674, 648, 1662, 648, 1644, 666, 1644, 670, 1634, 676, 1626, 668, 1618, 668, 1608, 658, 1604, 646, 1590, 636, 1582, 636, 1566, 648, 1558, 648, 1552, 642, 1556, 626, 1542, 624, 1534, 616, 1530, 640, 1294, 640, 1288, 654, 1270, 676, 1250, 676, 1234, 684, 1222, 684, 1202, 708, 1190, 700, 1178, 708, 1168, 698, 1172, 690, 1172, 674, 1168, 666, 1158, 664, 1150, 672, 1144, 666, 1144, 650, 1134, 640, 1130, 640, 1118, 652, 1102, 644, 1094, 644, 1078, 652, 1066, 664, 1054, 660, 1048, 682, 1042, 688, 1030, 688, 1024, 682, 1020, 678, 1020, 654, 1002, 648, 988, 658, 988, 678, 992, 682, 984, 702, 978, 708, 962, 692, 950, 692)
+
+[node name="Borde3" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1716, 158, 1716, 150, 1710, 148, 1708, 154, 1714, 160)
+
+[node name="Borde4" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1250, 168, 1244, 162, 1250, 156, 1256, 162)
+
+[node name="Borde5" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1338, 184, 1332, 178, 1332, 166, 1338, 160, 1344, 166, 1344, 178)
+
+[node name="Borde6" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(186, 228, 182, 228, 176, 218, 180, 214, 180, 206, 190, 196, 196, 206, 192, 210, 192, 222)
+
+[node name="Borde7" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1610, 248, 1604, 242, 1610, 236, 1616, 242)
+
+[node name="Borde8" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(302, 292, 296, 282, 306, 272, 312, 282)
+
+[node name="Borde9" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(328, 374, 326, 368, 320, 370, 322, 376)
+
+[node name="Borde10" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(994, 404, 986, 404, 972, 386, 978, 380, 982, 384, 986, 380, 1006, 376, 1014, 368, 1020, 374, 1016, 382, 1010, 388, 1002, 388, 1000, 398)
+
+[node name="Borde11" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1062, 384, 1052, 378, 1058, 372, 1068, 378)
+
+[node name="Borde12" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1058, 420, 1052, 410, 1064, 402, 1068, 394, 1064, 390, 1078, 380, 1090, 380, 1096, 386, 1086, 396, 1078, 392, 1076, 402)
+
+[node name="Borde13" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1122, 396, 1116, 390, 1122, 384, 1128, 390)
+
+[node name="Borde14" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1678, 408, 1668, 398, 1674, 392, 1684, 402)
+
+[node name="Borde15" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1006, 416, 1000, 410, 1006, 404, 1012, 410)
+
+[node name="Borde16" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1180, 634, 1196, 626, 1196, 614, 1188, 606, 1194, 600, 1210, 612, 1226, 616, 1234, 608, 1238, 612, 1246, 612, 1262, 624, 1282, 620, 1290, 608, 1298, 608, 1310, 600, 1318, 608, 1522, 608, 1534, 596, 1544, 594, 1544, 578, 1540, 574, 1548, 566, 1544, 562, 1552, 554, 1548, 550, 1552, 546, 1552, 466, 1546, 464, 1538, 476, 1518, 476, 1516, 470, 1506, 468, 1494, 452, 1486, 452, 1470, 468, 1458, 452, 1442, 448, 1426, 432, 1218, 432, 1214, 436, 1198, 436, 1194, 452, 1150, 452, 1126, 480, 1082, 480, 1074, 488, 1066, 480, 1054, 488, 1052, 614, 1074, 616, 1082, 608, 1102, 600, 1104, 590, 1110, 584, 1126, 584, 1138, 572, 1146, 572, 1152, 582, 1136, 602, 1144, 614, 1144, 622, 1154, 628, 1162, 628, 1170, 636)
+
+[node name="Borde17" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1856, 634, 1858, 604, 1894, 604, 1896, 602, 1888, 594, 1894, 588, 1910, 584, 1926, 572, 1934, 572, 1942, 560, 1956, 558, 1954, 460, 1950, 464, 1934, 464, 1924, 454, 1922, 444, 1902, 436, 1894, 440, 1890, 448, 1738, 448, 1734, 452, 1670, 452, 1666, 456, 1658, 456, 1654, 452, 1634, 452, 1622, 468, 1614, 468, 1606, 476, 1588, 478, 1588, 542, 1604, 558, 1604, 562, 1584, 590, 1584, 602, 1598, 616, 1614, 624, 1638, 624, 1650, 612, 1674, 612, 1698, 624, 1700, 598, 1692, 586, 1704, 574, 1696, 566, 1694, 556, 1678, 564, 1672, 558, 1682, 552, 1694, 536, 1726, 536, 1730, 532, 1738, 532, 1756, 546, 1752, 550, 1752, 558, 1740, 570, 1764, 590, 1758, 596, 1748, 598, 1750, 628, 1774, 616, 1782, 604, 1790, 612, 1798, 612, 1810, 624)
+
+[node name="Borde18" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(806, 564, 798, 564, 790, 556, 770, 560, 764, 554, 774, 544, 782, 544, 790, 532, 798, 544, 810, 544, 818, 536, 824, 542)
+
+[node name="Borde19" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(154, 560, 144, 546, 150, 536, 160, 554)
+
+[node name="Borde20" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1736, 566, 1730, 556, 1724, 562, 1730, 568)
+
+[node name="Borde21" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1720, 566, 1718, 560, 1716, 566)
+
+[node name="Borde22" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(914, 576, 908, 570, 914, 564, 920, 570)
+
+[node name="Borde23" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1674, 592, 1668, 586, 1666, 576, 1662, 576, 1654, 588, 1648, 582, 1652, 574, 1666, 564, 1680, 578, 1680, 586)
+
+[node name="Borde24" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1782, 592, 1776, 586, 1776, 578, 1790, 564, 1796, 574)
+
+[node name="Borde25" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1806, 604, 1800, 598, 1800, 586, 1806, 580, 1812, 586, 1812, 598)
+
+[node name="Borde26" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(970, 608, 958, 604, 948, 594, 958, 588, 976, 602)
+
+[node name="Borde27" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1920, 602, 1914, 596, 1900, 602)
+
+[node name="Borde28" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(722, 664, 718, 664, 696, 642, 696, 634, 706, 620, 716, 630, 716, 650, 728, 658)
+
+[node name="Borde29" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1008, 642, 994, 632, 984, 642, 986, 644, 994, 636, 1002, 644)
+
+[node name="Borde30" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(762, 672, 748, 658, 748, 646, 754, 640, 760, 650, 772, 658)
+
+[node name="Borde31" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(826, 708, 810, 708, 808, 706, 812, 702, 800, 694, 806, 688, 818, 688, 826, 680, 838, 684, 844, 690, 844, 698)
+
+[node name="Borde32" type="CollisionPolygon2D" parent="Colisiones"]
+build_mode = 1
+polygon = PackedVector2Array(1162, 712, 1156, 706, 1162, 696, 1168, 702)
+
+[node name="Zonas" type="Node2D" parent="."]
+
+[node name="Inicio" type="Area2D" parent="Zonas"]
+position = Vector2(190, 547.5)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("12_zona")
+nombre = "Inicio"
+subtitulo = "Despiertas en el bosque"
+es_lugar_seguro = true
+punto_reaparicion = Vector2(95, 570)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zonas/Inicio"]
+shape = SubResource("Rect_zona_0")
+
+[node name="LaVoz" type="Area2D" parent="Zonas"]
+position = Vector2(255, 307.5)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("12_zona")
+nombre = "La Voz"
+subtitulo = "Expresar lo que sientes"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zonas/LaVoz"]
+shape = SubResource("Rect_zona_1")
+
+[node name="LaCulpa" type="Area2D" parent="Zonas"]
+position = Vector2(610, 215)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("12_zona")
+nombre = "La Culpa"
+subtitulo = "Enfrenta el pasado"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zonas/LaCulpa"]
+shape = SubResource("Rect_zona_2")
+
+[node name="Santuario" type="Area2D" parent="Zonas"]
+position = Vector2(1010, 380)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("12_zona")
+nombre = "Santuario"
+subtitulo = "Comprensión"
+es_lugar_seguro = true
+punto_reaparicion = Vector2(1030, 425)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zonas/Santuario"]
+shape = SubResource("Rect_zona_3")
+
+[node name="ElAislamiento" type="Area2D" parent="Zonas"]
+position = Vector2(1020, 605)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("12_zona")
+nombre = "El Aislamiento"
+subtitulo = "No estás solo"
+musica = "tension"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zonas/ElAislamiento"]
+shape = SubResource("Rect_zona_4")
+
+[node name="LaAnsiedad" type="Area2D" parent="Zonas"]
+position = Vector2(1520, 171)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("12_zona")
+nombre = "La Ansiedad"
+subtitulo = "Pensamientos que te atacan"
+musica = "tension"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zonas/LaAnsiedad"]
+shape = SubResource("Rect_zona_5")
+
+[node name="ElApoyo" type="Area2D" parent="Zonas"]
+position = Vector2(1550, 379)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("12_zona")
+nombre = "El Apoyo"
+subtitulo = "Aceptar compañía"
+es_lugar_seguro = true
+punto_reaparicion = Vector2(1530, 445)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zonas/ElApoyo"]
+shape = SubResource("Rect_zona_6")
+
+[node name="LaEsperanza" type="Area2D" parent="Zonas"]
+position = Vector2(1740, 590)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("12_zona")
+nombre = "La Esperanza"
+subtitulo = "Dar el siguiente paso"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zonas/LaEsperanza"]
+shape = SubResource("Rect_zona_7")
+
+[node name="Salida" type="Area2D" parent="Zonas"]
+position = Vector2(1980, 200)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("12_zona")
+nombre = "Salida"
+subtitulo = "Hacia una nueva etapa"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Zonas/Salida"]
+shape = SubResource("Rect_zona_8")
+
+[node name="Entidades" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Objetos" type="Node2D" parent="Entidades"]
+y_sort_enabled = true
+
+[node name="FragmentoVoz" parent="Entidades/Objetos" instance=ExtResource("7_fragmento")]
+position = Vector2(219, 322)
+nombre = "La Voz"
+indice = 0
+lineas = PackedStringArray("Encontraste el fragmento de LA VOZ.", "Decir \"no estoy bien\" también es valiente.", "Expresar lo que sientes no te hace débil: permite que otros puedan acompañarte.")
+
+[node name="FragmentoApoyo" parent="Entidades/Objetos" instance=ExtResource("7_fragmento")]
+position = Vector2(1573, 388)
+nombre = "El Apoyo"
+indice = 1
+lineas = PackedStringArray("Encontraste el fragmento de EL APOYO.", "No tienes que cargar con todo solo.", "Aceptar compañía de amigos, familia o profesionales es parte del camino.")
+oculto_al_inicio = true
+
+[node name="FragmentoEsperanza" parent="Entidades/Objetos" instance=ExtResource("7_fragmento")]
+position = Vector2(1724, 592)
+nombre = "La Esperanza"
+indice = 2
+lineas = PackedStringArray("Encontraste el fragmento de LA ESPERANZA.", "La recuperación es un proceso: hay días buenos y días difíciles.", "Dar el siguiente paso, aunque sea pequeño, también cuenta.")
+oculto_al_inicio = true
+
+[node name="Respiro1" parent="Entidades/Objetos" instance=ExtResource("8_respiro")]
+position = Vector2(146, 290)
+
+[node name="Respiro2" parent="Entidades/Objetos" instance=ExtResource("8_respiro")]
+position = Vector2(582, 174)
+
+[node name="Respiro3" parent="Entidades/Objetos" instance=ExtResource("8_respiro")]
+position = Vector2(874, 426)
+
+[node name="Respiro4" parent="Entidades/Objetos" instance=ExtResource("8_respiro")]
+position = Vector2(1150, 638)
+
+[node name="Respiro5" parent="Entidades/Objetos" instance=ExtResource("8_respiro")]
+position = Vector2(846, 610)
+
+[node name="Respiro6" parent="Entidades/Objetos" instance=ExtResource("8_respiro")]
+position = Vector2(1606, 174)
+
+[node name="Respiro7" parent="Entidades/Objetos" instance=ExtResource("8_respiro")]
+position = Vector2(1862, 430)
+
+[node name="Respiro8" parent="Entidades/Objetos" instance=ExtResource("8_respiro")]
+position = Vector2(1638, 638)
+
+[node name="Respiro9" parent="Entidades/Objetos" instance=ExtResource("8_respiro")]
+position = Vector2(250, 546)
+
+[node name="Respiro10" parent="Entidades/Objetos" instance=ExtResource("8_respiro")]
+position = Vector2(1190, 398)
+
+[node name="Respiro11" parent="Entidades/Objetos" instance=ExtResource("8_respiro")]
+position = Vector2(685, 248)
+
+[node name="Enemigos" type="Node2D" parent="Entidades"]
+y_sort_enabled = true
+
+[node name="Sombra_Voz1" parent="Entidades/Enemigos" instance=ExtResource("5_sombra")]
+position = Vector2(293, 395)
+tipo = "voz"
+
+[node name="Sombra_Voz2" parent="Entidades/Enemigos" instance=ExtResource("5_sombra")]
+position = Vector2(150, 280)
+tipo = "voz"
+
+[node name="Sombra_Culpa1" parent="Entidades/Enemigos" instance=ExtResource("5_sombra")]
+position = Vector2(513, 207)
+tipo = "culpa"
+
+[node name="Sombra_Culpa2" parent="Entidades/Enemigos" instance=ExtResource("5_sombra")]
+position = Vector2(697, 283)
+tipo = "culpa"
+
+[node name="Sombra_Culpa3" parent="Entidades/Enemigos" instance=ExtResource("5_sombra")]
+position = Vector2(578, 170)
+tipo = "culpa"
+
+[node name="Sombra_Aislamiento1" parent="Entidades/Enemigos" instance=ExtResource("5_sombra")]
+position = Vector2(870, 628)
+tipo = "aislamiento"
+
+[node name="Sombra_Aislamiento2" parent="Entidades/Enemigos" instance=ExtResource("5_sombra")]
+position = Vector2(948, 665)
+tipo = "aislamiento"
+
+[node name="Sombra_Aislamiento3" parent="Entidades/Enemigos" instance=ExtResource("5_sombra")]
+position = Vector2(1110, 620)
+tipo = "aislamiento"
+
+[node name="Sombra_Aislamiento4" parent="Entidades/Enemigos" instance=ExtResource("5_sombra")]
+position = Vector2(1255, 648)
+tipo = "aislamiento"
+
+[node name="Arana_Ansiedad1" parent="Entidades/Enemigos" instance=ExtResource("6_arana")]
+position = Vector2(1470, 175)
+
+[node name="Arana_Ansiedad2" parent="Entidades/Enemigos" instance=ExtResource("6_arana")]
+position = Vector2(1540, 150)
+
+[node name="Arana_Ansiedad3" parent="Entidades/Enemigos" instance=ExtResource("6_arana")]
+position = Vector2(1685, 160)
+
+[node name="Arana_Ansiedad4" parent="Entidades/Enemigos" instance=ExtResource("6_arana")]
+position = Vector2(1350, 200)
+
+[node name="Lia" parent="Entidades" instance=ExtResource("10_npc")]
+position = Vector2(62, 594)
+nombre = "Lía"
+personaje = "lia"
+textura = ExtResource("20_lia")
+
+[node name="Rosa" parent="Entidades" instance=ExtResource("10_npc")]
+position = Vector2(958, 458)
+nombre = "Rosa"
+personaje = "rosa"
+textura = ExtResource("21_rosa")
+
+[node name="Sam" parent="Entidades" instance=ExtResource("10_npc")]
+position = Vector2(1500, 425)
+nombre = "Sam"
+personaje = "sam"
+textura = ExtResource("19_sam")
+
+[node name="Nico" parent="Entidades" instance=ExtResource("10_npc")]
+position = Vector2(846, 606)
+nombre = "Nico"
+personaje = "nico"
+textura = ExtResource("22_nico")
+
+[node name="Vale" parent="Entidades" instance=ExtResource("10_npc")]
+position = Vector2(1566, 222)
+nombre = "Vale"
+personaje = "vale"
+textura = ExtResource("23_vale")
+
+[node name="Salida" parent="Entidades" instance=ExtResource("9_salida")]
+position = Vector2(1975, 165)
+
+[node name="Alex" parent="Entidades" instance=ExtResource("4_alex")]
+position = Vector2(95, 570)
+
+[node name="CapaTextos" type="CanvasLayer" parent="." groups=["capa_textos"]]
+follow_viewport_enabled = true
+
+[node name="Guia" type="Node2D" parent="CapaTextos"]
+script = ExtResource("17_guia")
+
+[node name="Flecha" type="Sprite2D" parent="CapaTextos/Guia"]
+modulate = Color(1, 1, 1, 0.9)
+texture = ExtResource("18_flecha")
+
+[node name="HUD" parent="." instance=ExtResource("11_hud")]
+
+[connection signal="body_entered" from="Zonas/Inicio" to="Zonas/Inicio" method="_on_body_entered"]
+[connection signal="body_entered" from="Zonas/LaVoz" to="Zonas/LaVoz" method="_on_body_entered"]
+[connection signal="body_entered" from="Zonas/LaCulpa" to="Zonas/LaCulpa" method="_on_body_entered"]
+[connection signal="body_entered" from="Zonas/Santuario" to="Zonas/Santuario" method="_on_body_entered"]
+[connection signal="body_entered" from="Zonas/ElAislamiento" to="Zonas/ElAislamiento" method="_on_body_entered"]
+[connection signal="body_entered" from="Zonas/LaAnsiedad" to="Zonas/LaAnsiedad" method="_on_body_entered"]
+[connection signal="body_entered" from="Zonas/ElApoyo" to="Zonas/ElApoyo" method="_on_body_entered"]
+[connection signal="body_entered" from="Zonas/LaEsperanza" to="Zonas/LaEsperanza" method="_on_body_entered"]
+[connection signal="body_entered" from="Zonas/Salida" to="Zonas/Salida" method="_on_body_entered"]

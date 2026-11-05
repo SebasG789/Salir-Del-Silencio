@@ -1,0 +1,189 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/final.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/mapa/mapa_bosque.png" id="2_mapa"]
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_normal"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.06, 0.08, 0.16, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.6, 0.8, 0.7)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_hover"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.16, 0.2, 0.36, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.5, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_pressed"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.3, 0.26, 0.14, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.5, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_disabled"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.06, 0.08, 0.16, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.42, 0.55, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="Theme" id="Tema"]
+Button/colors/font_color = Color(0.9, 0.92, 1, 1)
+Button/colors/font_focus_color = Color(1, 0.9, 0.6, 1)
+Button/colors/font_hover_color = Color(1, 0.9, 0.6, 1)
+Button/font_sizes/font_size = 12
+Button/styles/disabled = SubResource("Style_boton_disabled")
+Button/styles/focus = SubResource("Style_boton_hover")
+Button/styles/hover = SubResource("Style_boton_hover")
+Button/styles/normal = SubResource("Style_boton_normal")
+Button/styles/pressed = SubResource("Style_boton_pressed")
+
+[node name="Final" type="Control"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Tema")
+script = ExtResource("1_script")
+
+[node name="Fondo" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_mapa")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Oscuro" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.03, 0.04, 0.1, 0.8)
+
+[node name="Textos" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_left = -200
+offset_top = -125
+offset_right = 200
+offset_bottom = 125
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="Titulo" type="Label" parent="Textos"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.6, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+text = "Alex salió del bosque"
+
+[node name="Historia" type="Label" parent="Textos"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.88, 0.9, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+text = "La niebla no desapareció del todo... pero ahora Alex sabe que no tiene que caminar solo."
+autowrap_mode = 3
+
+[node name="Mensaje" type="Label" parent="Textos"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.9, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+text = "Tu salud mental importa. Hablar de lo que sientes y buscar ayuda puede ser el primer paso. No tienes que enfrentar todo en silencio."
+autowrap_mode = 3
+
+[node name="Trivia" type="Label" parent="Textos"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.92, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+text = "Trivia"
+autowrap_mode = 3
+
+[node name="Ayuda" type="Label" parent="Textos"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.82, 0.9, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+text = "Si estás pasando por un momento difícil, habla con alguien de confianza. En Bogotá puedes llamar a la Línea 106."
+autowrap_mode = 3
+
+[node name="Menu" type="Button" parent="Textos"]
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2(170, 22)
+theme_override_font_sizes/font_size = 13
+text = "Hacer la trivia final"
+
+[node name="Blanco" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.96, 0.85, 1)
+
+[connection signal="pressed" from="Textos/Menu" to="." method="_on_menu_pressed"]

@@ -1,0 +1,59 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/pensamiento.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arana.png" id="2_tex"]
+
+[sub_resource type="AtlasTexture" id="A_0_0"]
+atlas = ExtResource("2_tex")
+region = Rect2(0, 0, 24, 18)
+
+[sub_resource type="AtlasTexture" id="A_1_0"]
+atlas = ExtResource("2_tex")
+region = Rect2(24, 0, 24, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_0_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_1_0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="Circle_cuerpo"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="Circle_danio"]
+radius = 9.0
+
+[node name="Arana" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 1
+motion_mode = 1
+script = ExtResource("1_script")
+tipo = "ansiedad"
+color_mensaje = Color(1, 0.6, 0.85, 1)
+vida = 1
+velocidad = 34.0
+se_mueve_a_saltos = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -2)
+sprite_frames = SubResource("SpriteFrames_1")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
+shape = SubResource("Circle_cuerpo")
+
+[node name="AreaDanio" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaDanio"]
+shape = SubResource("Circle_danio")

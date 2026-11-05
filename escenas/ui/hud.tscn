@@ -1,0 +1,417 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://escenas/ui/instrucciones.tscn" id="2_instr"]
+[ext_resource type="Texture2D" path="res://assets/mapa/mapa_bosque.png" id="3_mapa"]
+[ext_resource type="Texture2D" path="res://assets/sprites/flecha.png" id="4_flecha"]
+
+[sub_resource type="StyleBoxFlat" id="Style_panel"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.04, 0.05, 0.1, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95, 0.8, 0.45, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_normal"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.06, 0.08, 0.16, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.6, 0.8, 0.7)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_hover"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.16, 0.2, 0.36, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.5, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_pressed"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.3, 0.26, 0.14, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.5, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_disabled"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.06, 0.08, 0.16, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.42, 0.55, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="Theme" id="Tema"]
+Button/colors/font_color = Color(0.9, 0.92, 1, 1)
+Button/colors/font_focus_color = Color(1, 0.9, 0.6, 1)
+Button/colors/font_hover_color = Color(1, 0.9, 0.6, 1)
+Button/font_sizes/font_size = 12
+Button/styles/disabled = SubResource("Style_boton_disabled")
+Button/styles/focus = SubResource("Style_boton_hover")
+Button/styles/hover = SubResource("Style_boton_hover")
+Button/styles/normal = SubResource("Style_boton_normal")
+Button/styles/pressed = SubResource("Style_boton_pressed")
+
+[sub_resource type="StyleBoxFlat" id="Style_barra"]
+bg_color = Color(0.02, 0.03, 0.07, 0.6)
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="HUD" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_script")
+
+[node name="BarraSuperior" type="PanelContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 4.0
+offset_right = -4.0
+offset_bottom = 22.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Style_barra")
+
+[node name="Vida" type="HBoxContainer" parent="BarraSuperior"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="Espacio" type="Control" parent="BarraSuperior/Vida"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="Etiqueta" type="Label" parent="BarraSuperior/Vida"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.82, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 10
+text = "Vida"
+
+[node name="Corazones" type="HBoxContainer" parent="BarraSuperior/Vida"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Fragmentos" type="HBoxContainer" parent="BarraSuperior"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/separation = 4
+
+[node name="Etiqueta" type="Label" parent="BarraSuperior/Fragmentos"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.92, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 10
+text = "Fragmentos"
+
+[node name="Iconos" type="HBoxContainer" parent="BarraSuperior/Fragmentos"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Espacio" type="Control" parent="BarraSuperior/Fragmentos"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="Objetivo" type="Label" parent="."]
+offset_left = 8.0
+offset_top = 24.0
+offset_right = 330.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(1, 0.95, 0.8, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 9
+text = "Objetivo: "
+autowrap_mode = 3
+
+[node name="TeclaMapa" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 24.0
+offset_right = -8.0
+offset_bottom = 36.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.75, 0.8, 0.95, 0.9)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 2
+text = "M: mapa  ·  Esc: pausa"
+
+[node name="BannerZona" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -170.0
+offset_top = 50.0
+offset_right = 170.0
+offset_bottom = 96.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Titulo" type="Label" parent="BannerZona"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.6, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+text = "La Voz"
+
+[node name="Subtitulo" type="Label" parent="BannerZona"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.88, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 9
+horizontal_alignment = 1
+text = "Expresar lo que sientes"
+
+[node name="Pista" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -24.0
+offset_right = 120.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 0.95, 0.75, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0.9)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+text = "E: hablar"
+
+[node name="Danio" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.8, 0, 0.1, 0)
+
+[node name="Dialogo" type="PanelContainer" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -86.0
+offset_right = -24.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Tema")
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Margen" type="MarginContainer" parent="Dialogo"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Dialogo/Margen"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Titulo" type="Label" parent="Dialogo/Margen/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.5, 1)
+theme_override_font_sizes/font_size = 10
+text = "Titulo"
+
+[node name="Texto" type="Label" parent="Dialogo/Margen/VBox"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.95, 0.96, 1, 1)
+theme_override_font_sizes/font_size = 11
+text = "Texto del dialogo"
+autowrap_mode = 3
+
+[node name="Opciones" type="VBoxContainer" parent="Dialogo/Margen/VBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Continuar" type="Label" parent="Dialogo/Margen/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.7, 0.85, 1)
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 2
+text = "Espacio / E  >>"
+
+[node name="Mapa" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_left = -231
+offset_top = -107
+offset_right = 231
+offset_bottom = 107
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Margen" type="MarginContainer" parent="Mapa"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Mapa/Margen"]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="Titulo" type="Label" parent="Mapa/Margen/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.6, 1)
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+text = "MAPA DEL BOSQUE"
+
+[node name="Imagen" type="TextureRect" parent="Mapa/Margen/VBox"]
+custom_minimum_size = Vector2(440, 162)
+layout_mode = 2
+texture = ExtResource("3_mapa")
+expand_mode = 1
+
+[node name="MarcaObjetivo" type="TextureRect" parent="Mapa/Margen/VBox/Imagen"]
+offset_right = 16.0
+offset_bottom = 16.0
+rotation = 1.5708
+pivot_offset = Vector2(8, 8)
+texture = ExtResource("4_flecha")
+
+[node name="MarcaAlex" type="ColorRect" parent="Mapa/Margen/VBox/Imagen"]
+offset_right = 6.0
+offset_bottom = 6.0
+color = Color(0.3, 1, 0.5, 1)
+
+[node name="Leyenda" type="Label" parent="Mapa/Margen/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+text = "Verde: Alex  ·  Flecha dorada: objetivo  ·  M o Esc para cerrar"
+
+[node name="Pausa" type="PanelContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_left = -100
+offset_top = -75
+offset_right = 100
+offset_bottom = 75
+theme = SubResource("Tema")
+theme_override_styles/panel = SubResource("Style_panel")
+
+[node name="Margen" type="MarginContainer" parent="Pausa"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Pausa/Margen"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Titulo" type="Label" parent="Pausa/Margen/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.6, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+text = "PAUSA"
+
+[node name="Continuar" type="Button" parent="Pausa/Margen/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(160, 22)
+theme_override_font_sizes/font_size = 12
+text = "Continuar"
+
+[node name="Instrucciones" type="Button" parent="Pausa/Margen/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(160, 22)
+theme_override_font_sizes/font_size = 12
+text = "Instrucciones"
+
+[node name="Menu" type="Button" parent="Pausa/Margen/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(160, 22)
+theme_override_font_sizes/font_size = 12
+text = "Menú principal"
+
+[node name="Salir" type="Button" parent="Pausa/Margen/VBox"]
+layout_mode = 2
+custom_minimum_size = Vector2(160, 22)
+theme_override_font_sizes/font_size = 12
+text = "Salir del juego"
+
+[node name="Instrucciones" parent="." instance=ExtResource("2_instr")]
+visible = false
+
+[node name="Fundido" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="Pausa/Margen/VBox/Continuar" to="." method="_on_continuar_pressed"]
+[connection signal="pressed" from="Pausa/Margen/VBox/Instrucciones" to="." method="_on_instrucciones_pressed"]
+[connection signal="pressed" from="Pausa/Margen/VBox/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="Pausa/Margen/VBox/Salir" to="." method="_on_salir_pressed"]

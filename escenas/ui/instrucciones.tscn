@@ -1,0 +1,154 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/instrucciones.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="Style_panel"]
+content_margin_left = 10.0
+content_margin_top = 6.0
+content_margin_right = 10.0
+content_margin_bottom = 6.0
+bg_color = Color(0.04, 0.05, 0.1, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95, 0.8, 0.45, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_normal"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.06, 0.08, 0.16, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.55, 0.6, 0.8, 0.7)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_hover"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.16, 0.2, 0.36, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.5, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_pressed"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.3, 0.26, 0.14, 0.95)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.85, 0.5, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="Style_boton_disabled"]
+content_margin_left = 8.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+bg_color = Color(0.06, 0.08, 0.16, 0.7)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.42, 0.55, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="Theme" id="Tema"]
+Button/colors/font_color = Color(0.9, 0.92, 1, 1)
+Button/colors/font_focus_color = Color(1, 0.9, 0.6, 1)
+Button/colors/font_hover_color = Color(1, 0.9, 0.6, 1)
+Button/font_sizes/font_size = 12
+Button/styles/disabled = SubResource("Style_boton_disabled")
+Button/styles/focus = SubResource("Style_boton_hover")
+Button/styles/hover = SubResource("Style_boton_hover")
+Button/styles/normal = SubResource("Style_boton_normal")
+Button/styles/pressed = SubResource("Style_boton_pressed")
+
+[node name="Instrucciones" type="PanelContainer"]
+custom_minimum_size = Vector2(420, 240)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+offset_left = -210
+offset_top = -120
+offset_right = 210
+offset_bottom = 120
+theme = SubResource("Tema")
+theme_override_styles/panel = SubResource("Style_panel")
+script = ExtResource("1_script")
+
+[node name="Margen" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="Margen"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Titulo" type="Label" parent="Margen/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.88, 0.6, 1)
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+text = "INSTRUCCIONES"
+
+[node name="Scroll" type="ScrollContainer" parent="Margen/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Texto" type="Label" parent="Margen/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.94, 1, 1)
+theme_override_font_sizes/font_size = 9
+text = "OBJETIVO\nAyuda a Alex a encontrar los 3 fragmentos (La Voz, El Apoyo y La Esperanza) para abrir la salida del bosque.\n\nCONTROLES\nFlechas o WASD: moverte\nEspacio o J: atacar con la espada de luz\nE o Enter: hablar y continuar los diálogos\nM: ver el mapa\nEsc: pausa (continuar, instrucciones, menú o salir)\n\nCÓMO NO PERDERTE\nArriba a la izquierda siempre ves tu objetivo.\nLa flecha dorada junto a Alex apunta por el camino que debes seguir.\nEn el mapa (M) la estrella marca a dónde ir.\n\nVIDA\nTus corazones están arriba a la izquierda. Si un pensamiento te toca, pierdes uno.\nRecoge las luces de respiro para recuperar vida.\nEl Inicio, el Santuario y El Apoyo son lugares seguros: ahí recuperas toda la vida.\nSi te quedas sin vida, vuelves al último lugar seguro.\n\nPERSONAJES\nCuando un personaje tiene un \"!\" encima, tiene algo que decirte. Acércate y presiona E.\nAlgunos fragmentos solo aparecen si hablas con la persona correcta: escucha a Sam y a Nico. Y para poder salir del bosque, primero tienes que ayudar a Vale en La Ansiedad.\n\nTRIVIA Y RESULTADOS\nAntes de jugar haces una trivia inicial y, al salir del bosque, una trivia final con las mismas preguntas. Al final verás tu resultado inicial y final, tema por tema.\n\nENEMIGOS\nLas sombras y las arañas son pensamientos negativos. Se esconden en la niebla y aparecen cuando te acercas. Al vencerlos aparece una frase que los contradice."
+autowrap_mode = 3
+
+[node name="Ayuda" type="Label" parent="Margen/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.7, 0.85, 1)
+theme_override_font_sizes/font_size = 8
+horizontal_alignment = 1
+text = "Rueda del mouse o flechas para bajar  ·  Esc para cerrar"
+
+[node name="Volver" type="Button" parent="Margen/VBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+custom_minimum_size = Vector2(120, 22)
+theme_override_font_sizes/font_size = 12
+text = "Volver"
+
+[connection signal="pressed" from="Margen/VBox/Volver" to="." method="_on_volver_pressed"]

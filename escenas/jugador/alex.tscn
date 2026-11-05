@@ -1,0 +1,312 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/alex.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/alex.png" id="2_tex"]
+[ext_resource type="Texture2D" path="res://recursos/luz_suave.tres" id="3_luz"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tajo.png" id="4_tajo"]
+[ext_resource type="Texture2D" path="res://assets/sprites/sombra_pies.png" id="5_sombra"]
+
+[sub_resource type="AtlasTexture" id="A_0_0"]
+atlas = ExtResource("2_tex")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_0_1"]
+atlas = ExtResource("2_tex")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_0_2"]
+atlas = ExtResource("2_tex")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_0_3"]
+atlas = ExtResource("2_tex")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_0_4"]
+atlas = ExtResource("2_tex")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_1_0"]
+atlas = ExtResource("2_tex")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_1_1"]
+atlas = ExtResource("2_tex")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_1_2"]
+atlas = ExtResource("2_tex")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_1_3"]
+atlas = ExtResource("2_tex")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_1_4"]
+atlas = ExtResource("2_tex")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_2_0"]
+atlas = ExtResource("2_tex")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_2_1"]
+atlas = ExtResource("2_tex")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_2_2"]
+atlas = ExtResource("2_tex")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_2_3"]
+atlas = ExtResource("2_tex")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_2_4"]
+atlas = ExtResource("2_tex")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_3_0"]
+atlas = ExtResource("2_tex")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_3_1"]
+atlas = ExtResource("2_tex")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_3_2"]
+atlas = ExtResource("2_tex")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_3_3"]
+atlas = ExtResource("2_tex")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="A_3_4"]
+atlas = ExtResource("2_tex")
+region = Rect2(48, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_0_0")
+}],
+"loop": true,
+"name": &"idle_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_0_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_0_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_0_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_0_3")
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_0_4")
+}],
+"loop": false,
+"name": &"attack_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_1_0")
+}],
+"loop": true,
+"name": &"idle_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_1_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_1_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_1_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_1_3")
+}],
+"loop": true,
+"name": &"walk_up",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_1_4")
+}],
+"loop": false,
+"name": &"attack_up",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_2_0")
+}],
+"loop": true,
+"name": &"idle_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_2_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_2_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_2_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_2_3")
+}],
+"loop": true,
+"name": &"walk_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_2_4")
+}],
+"loop": false,
+"name": &"attack_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_3_0")
+}],
+"loop": true,
+"name": &"idle_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_3_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_3_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_3_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("A_3_3")
+}],
+"loop": true,
+"name": &"walk_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("A_3_4")
+}],
+"loop": false,
+"name": &"attack_right",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="T_0_0"]
+atlas = ExtResource("4_tajo")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="T_1_0"]
+atlas = ExtResource("4_tajo")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="T_2_0"]
+atlas = ExtResource("4_tajo")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="T_3_0"]
+atlas = ExtResource("4_tajo")
+region = Rect2(120, 0, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tajo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("T_0_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("T_1_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("T_2_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("T_3_0")
+}],
+"loop": false,
+"name": &"tajo",
+"speed": 22.0
+}]
+
+[sub_resource type="CircleShape2D" id="Circle_cuerpo"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="Circle_espada"]
+radius = 15.0
+
+[node name="Alex" type="CharacterBody2D" groups=["jugador"]]
+collision_layer = 2
+collision_mask = 1
+motion_mode = 1
+script = ExtResource("1_script")
+
+[node name="SombraPies" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.6)
+position = Vector2(0, 11)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("5_sombra")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_1")
+animation = &"idle_down"
+
+[node name="Tajo" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_tajo")
+animation = &"tajo"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("Circle_cuerpo")
+
+[node name="EspadaHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EspadaHitbox"]
+shape = SubResource("Circle_espada")
+
+[node name="Luz" type="PointLight2D" parent="."]
+color = Color(1, 0.86, 0.62, 1)
+energy = 1.15
+texture = ExtResource("3_luz")
+texture_scale = 1.3
+
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 2067
+limit_bottom = 761
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
